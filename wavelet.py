@@ -4,8 +4,8 @@ import math
 from scipy import integrate
 import sympy as sym
 e = math.e
-j=[0, 1]
-k=[0, -1, 1]
+j=[0]
+k=[0]
 def phi(A, t, s, c):
     if c:
         return (A*e**((-t**2)/2)) * (e ** (1j * s * t)) - (e ** ((-s**2)/2))
@@ -26,4 +26,17 @@ def runExpansion(arrJ, arrK):
         for q in range(len(arrK)):
             currsum += 2**(arrJ[p]/2)*phi(1, x*2**arrJ[p], 1, 1)*inner_product(testfunct(), arrJ[p], arrK[q])
     return currsum
-print(runExpansion(j, k))
+def rSq(functionInp, functionTest):
+    ar1 = []
+    ar2 = []
+    for i in np.arange(0.0, 1, 0.1):
+        ar1.append(functionInp.evalf(subs={'x': i}))
+        ar2.append(functionTest.evalf(subs={'x': i}))
+    currErr = 0
+    for i in range(len(ar1)):
+        print(ar1[i])
+        print(ar2[i])
+        currErr += (ar2[i]-ar1[i])**2
+    print(currErr)
+    return math.sqrt((currErr/len(ar1)))
+print(rSq(runExpansion(j, k), testfunct()))
