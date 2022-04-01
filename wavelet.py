@@ -21,7 +21,6 @@ def inner_product(func, j, k):
 def testfunct():
     x=sym.Symbol('x')
     return x**2
-
 def runExpansion(arrJ, arrK):
     currsum = 0
     x=sym.Symbol('x')
@@ -29,7 +28,6 @@ def runExpansion(arrJ, arrK):
         for q in range(len(arrK)):
             currsum += 2**(arrJ[p]/2)*phi(1, x*2**arrJ[p], 1, 1)*inner_product(testfunct(), arrJ[p], arrK[q])
     return currsum
-
 def rSq(functionInp, functionTest):
     ar1 = []
     ar2 = []
@@ -41,24 +39,12 @@ def rSq(functionInp, functionTest):
         print(ar1[i])
         print(ar2[i])
         currErr += (ar2[i]-ar1[i])**2
-    # print(cmath.sqrt(currErr/len(ar1)))
+    print(currErr)
     return cmath.sqrt((currErr/len(ar1)))
-# p1 = plot(real(runExpansion(j, k)), show = False)
+print(runExpansion(j, k))
+p1 = plot(sym.re(runExpansion(j, k)), show = False)
 #p2 = plot(testfunct, show = False)
 #p1.append(p2[0])
-# p1.show()
+p1.show()
 
-rSq(runExpansion(j, k), testfunct())
-
-
-
-
-
-
-
-
-
-
-
-
-
+print(rSq(runExpansion(j, k), testfunct()))
